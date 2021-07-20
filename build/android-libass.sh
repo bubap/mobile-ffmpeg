@@ -34,6 +34,18 @@ export CXXFLAGS=$(get_cxxflags ${LIB_NAME})
 export LDFLAGS=$(get_ldflags ${LIB_NAME})
 export PKG_CONFIG_LIBDIR="${INSTALL_PKG_CONFIG_DIR}"
 
+# UPDATE BUILD FLAGS
+export FREETYPE_CFLAGS="$(pkg-config --dont-define-prefix --cflags freetype2)"
+export FREETYPE_LIBS="$(pkg-config --dont-define-prefix --libs --static freetype2)"
+export FRIBIDI_CFLAGS="$(pkg-config --dont-define-prefix --cflags fribidi)"
+export FRIBIDI_LIBS="$(pkg-config --dont-define-prefix --libs --static fribidi)"
+export FONTCONFIG_CFLAGS="$(pkg-config --dont-define-prefix --cflags fontconfig)"
+export FONTCONFIG_LIBS="$(pkg-config --dont-define-prefix --libs --static fontconfig)"
+export HARFBUZZ_CFLAGS="$(pkg-config --dont-define-prefix --cflags harfbuzz)"
+export HARFBUZZ_LIBS="$(pkg-config --dont-define-prefix --libs --static harfbuzz)"
+export LIBPNG_CFLAGS="$(pkg-config --dont-define-prefix --cflags libpng)"
+export LIBPNG_LIBS="$(pkg-config --dont-define-prefix --libs --static libpng)"
+
 cd ${BASEDIR}/src/${LIB_NAME} || exit 1
 
 make distclean 2>/dev/null 1>/dev/null

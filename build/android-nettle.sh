@@ -52,6 +52,9 @@ if [[ ${RECONF_nettle} -eq 1 ]]; then
     autoreconf_library ${LIB_NAME}
 fi
 
+${SED_INLINE} 's/exit(0)/return 0/g' ${BASEDIR}/src/${LIB_NAME}/configure
+${SED_INLINE} 's/exit (0)/return 0/g' ${BASEDIR}/src/${LIB_NAME}/configure
+
 ./configure \
     --prefix=${BASEDIR}/prebuilt/android-$(get_target_build)/${LIB_NAME} \
     --enable-pic \

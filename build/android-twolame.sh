@@ -43,8 +43,8 @@ if [[ ${RECONF_twolame} -eq 1 ]]; then
     autoreconf_library ${LIB_NAME}
 fi
 
-export SNDFILE_CFLAGS="$(pkg-config --cflags sndfile)"
-export SNDFILE_LIBS="$(pkg-config --libs --static sndfile)"
+export SNDFILE_CFLAGS="$(pkg-config --dont-define-prefix --cflags sndfile)"
+export SNDFILE_LIBS="$(pkg-config --dont-define-prefix --libs --static sndfile)"
 
 ./configure \
     --prefix=${BASEDIR}/prebuilt/android-$(get_target_build)/${LIB_NAME} \
