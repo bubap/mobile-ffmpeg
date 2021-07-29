@@ -212,8 +212,8 @@ download_library_source() {
     SOURCE_TYPE="TAG"
     ;;
   ffmpeg)
-    LIB_REPO_URL="https://github.com/tanersener/FFmpeg"
-    SOURCE_ID="d222da435e63a2665b85c0305ad2cf8a07b1af6d"      # COMMIT -> v4.4-dev-416
+    LIB_REPO_URL="https://github.com/bubap/FFmpeg"
+    SOURCE_ID="2079d7325acaeefdc408ddd1d1b1d1135675763c"      # COMMIT -> v4.4-dev-416
     SOURCE_TYPE="COMMIT"
     ;;
   esac
