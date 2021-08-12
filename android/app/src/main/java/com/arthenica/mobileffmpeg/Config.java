@@ -60,6 +60,8 @@ public class Config {
 
     public static final int RETURN_CODE_CANCEL = 255;
 
+    public static MC264Encoder mMC264Encoder = new MC264Encoder();
+
     private static int lastReturnCode = 0;
 
     /**

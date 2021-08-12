@@ -28,6 +28,11 @@
 #include "mobileffmpeg.h"
 #include "mobileffprobe.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
 /** Callback data structure */
 struct CallbackData {
   int type;                 // 1 (log callback) or 2 (statistics callback)
@@ -775,6 +780,13 @@ JNIEXPORT jstring JNICALL Java_com_arthenica_mobileffmpeg_Config_getNativeVersio
     return (*env)->NewStringUTF(env, MOBILE_FFMPEG_VERSION);
 }
 
+static jobject gobj = 0;    //MC264Encoder.java
+static jclass gcls = 0;     //MC264Encoder.java
+static jmethodID gmid;      //MC264Encoder.java :: void putYUVFrameData( byte[] frameData, long pts, boolean flushOnly )
+static jmethodID gmid2;     //MC264Encoder.java :: void setParameter( int width, int height, int bitrate, float framerate, int gop, int colorformat )
+static jmethodID gmid3;     //MC264Encoder.java :: void release()
+JNIEnv *genv;
+
 /**
  * Synchronously executes FFmpeg natively with arguments provided.
  *
@@ -785,6 +797,22 @@ JNIEXPORT jstring JNICALL Java_com_arthenica_mobileffmpeg_Config_getNativeVersio
  * @return zero on successful execution, non-zero on error
  */
 JNIEXPORT jint JNICALL Java_com_arthenica_mobileffmpeg_Config_nativeFFmpegExecute(JNIEnv *env, jclass object, jlong id, jobjectArray stringArray) {
+    jclass configCls = (*env)->FindClass(env, configClassName);
+    jfieldID fid = (*env)->GetStaticFieldID(env, configCls, "mMC264Encoder", "Lcom/arthenica/mobileffmpeg/MC264Encoder;");
+    if (fid == 0) return JNI_FALSE;
+
+    jobject encoderObj = (*env)->GetStaticObjectField(env, configCls, fid);
+    gobj = (*env)->NewGlobalRef(env, encoderObj);
+
+    jclass encoderCls = (*env)->GetObjectClass(env, encoderObj);
+    gcls = (*env)->NewGlobalRef(env, encoderCls);
+
+    gmid = (*env)->GetMethodID(env, gcls, "putYUVFrameData", "([BIJZ)V");   //void putYUVFrameData( byte[] frameData, int stride, long pts, boolean flushOnly )
+    gmid2 = (*env)->GetMethodID(env, gcls, "setParameter", "(IIIFII)V");    //void setParameter( int width, int height, int bitrate, float framerate, int gop, int colorformat )
+    gmid3 = (*env)->GetMethodID(env, gcls, "release", "()V");               //void release()
+
+    genv = env;
+
     jstring *tempArray = NULL;
     int argumentCount = 1;
     char **argv = NULL;
@@ -941,3 +969,125 @@ JNIEXPORT void JNICALL Java_com_arthenica_mobileffmpeg_Config_ignoreNativeSignal
         handleSIGPIPE = 0;
     }
 }
+
+/*
+ * Local functions called by java & ffmpeg libavcodec
+ */
+void pushEncodedFrame( unsigned char* pData, int length, int64_t presentationTimeUs, int32_t b_keyframe );
+int getEncodedFrame( void **data, int *length, int64_t *presentationTimeUs, int32_t *b_keyframe );
+
+JNIEXPORT void JNICALL Java_com_arthenica_mobileffmpeg_MC264Encoder_onH264MediaCodecEncodedFrame2(JNIEnv *env, jobject obj, jobject data, jint size, jlong presentationTimeUs, jint b_keyframe)
+{
+    jbyte * pData = (*genv)->GetDirectBufferAddress(genv, data);
+
+    int64_t pts = presentationTimeUs;  //jlong is 64-bit
+    int32_t is_keyframe = b_keyframe;
+
+    pushEncodedFrame( (unsigned char*) pData, size, pts, is_keyframe );
+}
+
+/*
+ * container for both pushEncodedFrame() and getEncodedFrame(). No lock required in use case.
+ */
+struct encodedPacket {
+    unsigned char *pData;
+    int length;
+    int64_t presentationTimeUs;
+    int32_t b_keyframe;
+};
+
+#define MAX_ENC_PACKETS  2
+struct encodedPacket encodedPackets[MAX_ENC_PACKETS+1];
+uint32_t encodedPktIdxHead = 0;
+uint32_t encodedPktIdxTail = 0;
+
+void pushEncodedFrame( unsigned char* pData, int length, int64_t presentationTimeUs, int32_t b_keyframe )
+{
+    encodedPackets[encodedPktIdxHead].pData = (unsigned char *) malloc( length );
+    memcpy( encodedPackets[encodedPktIdxHead].pData, pData, length );
+    encodedPackets[encodedPktIdxHead].length = length;
+    encodedPackets[encodedPktIdxHead].presentationTimeUs = presentationTimeUs;
+    encodedPackets[encodedPktIdxHead].b_keyframe = b_keyframe;
+
+    encodedPktIdxHead = (encodedPktIdxHead + 1) % MAX_ENC_PACKETS;
+}
+
+int getEncodedFrame( void **data, int *length, int64_t *presentationTimeUs, int32_t *b_keyframe )
+{
+    if( encodedPktIdxHead != encodedPktIdxTail ) {
+        *data = encodedPackets[encodedPktIdxTail].pData;
+        *length = encodedPackets[encodedPktIdxTail].length;
+        *presentationTimeUs = encodedPackets[encodedPktIdxTail].presentationTimeUs;
+        *b_keyframe = encodedPackets[encodedPktIdxTail].b_keyframe;
+
+        encodedPktIdxTail = (encodedPktIdxTail + 1) % MAX_ENC_PACKETS;
+        return 0;
+    } else {
+        *data = NULL;
+    }
+    return -1;
+}
+
+/*
+ * refer to : https://m.blog.naver.com/PostView.nhn?blogId=ein0204&logNo=220384865210&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+ * NV12 종류 : (LG Q6)
+ * COLOR_FormatYUV420SemiPlanar
+ * COLOR_FormatYUV420PackedSemiPlanar
+ * COLOR_TI_FormatYUV420PackedSemiPlanar
+ *
+ * I420 종류 : (ffmpeg, 삼성의 최신폰)
+ * COLOR_FormatYUV420Planar
+ * COLOR_FormatYUV420PackedPlanar
+ *
+ * For a single I420 pixel : YYYYYYYY UU VV
+ * For a single NV12 pixel : YYYYYYYY UVUV
+ *
+ */
+// static uint8_t * convI420toNV12( uint8_t *pData )
+// {
+//     //TODO
+// }
+
+int mediacodec_release(void)
+{
+    if( gcls && gobj ) {
+
+        //call public void release()
+        (*genv)->CallVoidMethod(genv, gobj, gmid3 );
+
+        return 0;
+    } else {
+        /* not yet prepared ... */
+        return -1;
+    }
+}
+
+int sendParameterToJavaEncoder( int width, int height, int bitrate, float framerate, int gop, int colorformat )
+{
+    if( gcls && gobj ) {
+        //call setParameter( int width, int height, int bitrate, float framerate, int gop, int colorformat )
+        (*genv)->CallVoidMethod(genv, gobj, gmid2, width, height, bitrate, framerate, gop, colorformat );
+        return 0;
+    } else {
+        /* not yet prepared ... */
+        return -1;
+    }
+}
+
+int sendFrameToJavaEncoder( void *data, int length, int stride, uint64_t pts ) {
+    if( gcls && gobj ) {
+        jbyteArray jb = (*genv)->NewByteArray(genv, length);
+        (*genv)->SetByteArrayRegion(genv, jb, 0, length, (jbyte*)data);
+
+        //call void putYUVFrameData( byte[] frameData, int stride, boolean flushOnly )
+        (*genv)->CallVoidMethod(genv, gobj, gmid, jb, stride, pts, /*flush*/0 );
+
+        (*genv)->DeleteLocalRef(genv, jb);
+        return length;
+    } else {
+        /* not yet prepared ... */
+        return -1;
+    }
+    return 0;
+}
+
