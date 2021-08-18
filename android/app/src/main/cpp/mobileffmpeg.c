@@ -782,7 +782,7 @@ JNIEXPORT jstring JNICALL Java_com_arthenica_mobileffmpeg_Config_getNativeVersio
 
 static jobject gobj = 0;    //MC264Encoder.java
 static jclass gcls = 0;     //MC264Encoder.java
-static jmethodID gmid;      //MC264Encoder.java :: void putYUVFrameData( byte[] frameData, long pts, boolean flushOnly )
+static jmethodID gmid;      //MC264Encoder.java :: void putYUVFrameData( byte[] frameData, long pts)
 static jmethodID gmid2;     //MC264Encoder.java :: void setParameter( int width, int height, int bitrate, float framerate, int gop, int colorformat )
 static jmethodID gmid3;     //MC264Encoder.java :: void release()
 JNIEnv *genv;
@@ -807,7 +807,7 @@ JNIEXPORT jint JNICALL Java_com_arthenica_mobileffmpeg_Config_nativeFFmpegExecut
     jclass encoderCls = (*env)->GetObjectClass(env, encoderObj);
     gcls = (*env)->NewGlobalRef(env, encoderCls);
 
-    gmid = (*env)->GetMethodID(env, gcls, "putYUVFrameData", "([BIJZ)V");   //void putYUVFrameData( byte[] frameData, int stride, long pts, boolean flushOnly )
+    gmid = (*env)->GetMethodID(env, gcls, "putYUVFrameData", "([BIJ)V");   //void putYUVFrameData( byte[] frameData, int stride, long pts )
     gmid2 = (*env)->GetMethodID(env, gcls, "setParameter", "(IIIFII)V");    //void setParameter( int width, int height, int bitrate, float framerate, int gop, int colorformat )
     gmid3 = (*env)->GetMethodID(env, gcls, "release", "()V");               //void release()
 
@@ -1079,8 +1079,8 @@ int sendFrameToJavaEncoder( void *data, int length, int stride, uint64_t pts ) {
         jbyteArray jb = (*genv)->NewByteArray(genv, length);
         (*genv)->SetByteArrayRegion(genv, jb, 0, length, (jbyte*)data);
 
-        //call void putYUVFrameData( byte[] frameData, int stride, boolean flushOnly )
-        (*genv)->CallVoidMethod(genv, gobj, gmid, jb, stride, pts, /*flush*/0 );
+        //call void putYUVFrameData( byte[] frameData, int stride)
+        (*genv)->CallVoidMethod(genv, gobj, gmid, jb, stride, pts);
 
         (*genv)->DeleteLocalRef(genv, jb);
         return length;
