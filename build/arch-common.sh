@@ -213,7 +213,7 @@ download_library_source() {
     ;;
   ffmpeg)
     LIB_REPO_URL="https://github.com/bubap/FFmpeg"
-    SOURCE_ID="fd4a2c879672c715139a8125fe99974a35c94694"      # COMMIT -> v4.4-dev-416
+    SOURCE_ID="46b8c707351dd2a13747ce30cc6e52961ad08076"      # COMMIT -> v4.4-dev-416
     SOURCE_TYPE="COMMIT"
     ;;
   esac
