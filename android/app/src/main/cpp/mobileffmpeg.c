@@ -976,7 +976,7 @@ JNIEXPORT void JNICALL Java_com_arthenica_mobileffmpeg_Config_ignoreNativeSignal
 void pushEncodedFrame( unsigned char* pData, int length, int64_t presentationTimeUs, int32_t b_keyframe );
 int getEncodedFrame( void **data, int *length, int64_t *presentationTimeUs, int32_t *b_keyframe );
 
-JNIEXPORT void JNICALL Java_com_arthenica_mobileffmpeg_MC264Encoder_onH264MediaCodecEncodedFrame2(JNIEnv *env, jobject obj, jobject data, jint size, jlong presentationTimeUs, jint b_keyframe)
+JNIEXPORT void JNICALL Java_com_arthenica_mobileffmpeg_MC264Encoder_onH264MediaCodecEncodedFrame(JNIEnv *env, jobject obj, jobject data, jint size, jlong presentationTimeUs, jint b_keyframe)
 {
     jbyte * pData = (*genv)->GetDirectBufferAddress(genv, data);
 
@@ -1027,26 +1027,6 @@ int getEncodedFrame( void **data, int *length, int64_t *presentationTimeUs, int3
     }
     return -1;
 }
-
-/*
- * refer to : https://m.blog.naver.com/PostView.nhn?blogId=ein0204&logNo=220384865210&proxyReferer=https%3A%2F%2Fwww.google.com%2F
- * NV12 종류 : (LG Q6)
- * COLOR_FormatYUV420SemiPlanar
- * COLOR_FormatYUV420PackedSemiPlanar
- * COLOR_TI_FormatYUV420PackedSemiPlanar
- *
- * I420 종류 : (ffmpeg, 삼성의 최신폰)
- * COLOR_FormatYUV420Planar
- * COLOR_FormatYUV420PackedPlanar
- *
- * For a single I420 pixel : YYYYYYYY UU VV
- * For a single NV12 pixel : YYYYYYYY UVUV
- *
- */
-// static uint8_t * convI420toNV12( uint8_t *pData )
-// {
-//     //TODO
-// }
 
 int mediacodec_release(void)
 {
