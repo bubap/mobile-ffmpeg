@@ -93,7 +93,7 @@ public class MC264Encoder {
         mEncoderColorFormat = selectColorFormat(codecInfo, "video/avc");
 
         MediaFormat mediaFormat = MediaFormat.createVideoFormat("video/avc", mWidth, mHeight);
-        mediaFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, mWidth * mHeight * 3 / 2);
+        mediaFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, (int) Math.ceil(mWidth * mHeight * 3 / 2));
         mediaFormat.setInteger(MediaFormat.KEY_BIT_RATE, mBitRate);
         mediaFormat.setFloat(MediaFormat.KEY_FRAME_RATE, mFrameRate);
         mediaFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, mEncoderColorFormat);
