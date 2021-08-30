@@ -294,6 +294,7 @@ public class MC264Encoder {
     private static boolean isRecognizedFormat(int colorFormat) {
         switch (colorFormat) {
             // these are the formats we know how to handle for this test
+            case MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Flexible:
             case MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar:
             case MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420PackedPlanar:
             case MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar:
