@@ -104,197 +104,197 @@ do
 
         case ${ENABLED_LIBRARY} in
             chromaprint)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libchromaprint)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libchromaprint)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libchromaprint)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libchromaprint)"
                 CONFIGURE_POSTFIX+=" --enable-chromaprint"
             ;;
             fontconfig)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags fontconfig)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static fontconfig)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags fontconfig)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static fontconfig)"
                 CONFIGURE_POSTFIX+=" --enable-libfontconfig"
             ;;
             freetype)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags freetype2)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static freetype2)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags freetype2)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static freetype2)"
                 CONFIGURE_POSTFIX+=" --enable-libfreetype"
             ;;
             fribidi)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags fribidi)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static fribidi)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags fribidi)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static fribidi)"
                 CONFIGURE_POSTFIX+=" --enable-libfribidi"
             ;;
             gmp)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags gmp)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static gmp)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags gmp)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static gmp)"
                 CONFIGURE_POSTFIX+=" --enable-gmp"
             ;;
             gnutls)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags gnutls)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static gnutls)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags gnutls)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static gnutls)"
                 CONFIGURE_POSTFIX+=" --enable-gnutls"
             ;;
             kvazaar)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags kvazaar)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static kvazaar)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags kvazaar)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static kvazaar)"
                 CONFIGURE_POSTFIX+=" --enable-libkvazaar"
             ;;
             lame)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libmp3lame)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libmp3lame)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libmp3lame)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libmp3lame)"
                 CONFIGURE_POSTFIX+=" --enable-libmp3lame"
             ;;
             libaom)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags aom)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static aom)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags aom)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static aom)"
                 CONFIGURE_POSTFIX+=" --enable-libaom"
             ;;
             libass)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libass)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libass)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libass)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libass)"
                 CONFIGURE_POSTFIX+=" --enable-libass"
             ;;
             libilbc)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libilbc)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libilbc)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libilbc)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libilbc)"
                 CONFIGURE_POSTFIX+=" --enable-libilbc"
             ;;
             libtheora)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags theora)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static theora)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags theora)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static theora)"
                 CONFIGURE_POSTFIX+=" --enable-libtheora"
             ;;
             libvidstab)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags vidstab)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static vidstab)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags vidstab)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static vidstab)"
                 CONFIGURE_POSTFIX+=" --enable-libvidstab --enable-gpl"
             ;;
             libvorbis)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags vorbis)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static vorbis)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags vorbis)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static vorbis)"
                 CONFIGURE_POSTFIX+=" --enable-libvorbis"
             ;;
             libvpx)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags vpx)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static vpx)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags vpx)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static vpx)"
                 CONFIGURE_POSTFIX+=" --enable-libvpx"
             ;;
             libwebp)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libwebp)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libwebp)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libwebp)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libwebp)"
                 CONFIGURE_POSTFIX+=" --enable-libwebp"
             ;;
             libxml2)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libxml-2.0)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libxml-2.0)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libxml-2.0)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libxml-2.0)"
                 CONFIGURE_POSTFIX+=" --enable-libxml2"
             ;;
             opencore-amr)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags opencore-amrnb)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static opencore-amrnb)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags opencore-amrnb)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static opencore-amrnb)"
                 CONFIGURE_POSTFIX+=" --enable-libopencore-amrnb"
             ;;
             openh264)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags openh264)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static openh264)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags openh264)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static openh264)"
                 CONFIGURE_POSTFIX+=" --enable-libopenh264"
             ;;
             opus)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags opus)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static opus)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags opus)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static opus)"
                 CONFIGURE_POSTFIX+=" --enable-libopus"
             ;;
             rubberband)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags rubberband)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static rubberband)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags rubberband)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static rubberband)"
                 FFMPEG_LDFLAGS+=" -framework Accelerate"
                 CONFIGURE_POSTFIX+=" --enable-librubberband --enable-gpl"
             ;;
             sdl)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags sdl2)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static sdl2)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags sdl2)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static sdl2)"
                 CONFIGURE_POSTFIX+=" --enable-sdl2"
             ;;
             shine)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags shine)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static shine)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags shine)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static shine)"
                 CONFIGURE_POSTFIX+=" --enable-libshine"
             ;;
             snappy)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags snappy)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static snappy)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags snappy)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static snappy)"
                 CONFIGURE_POSTFIX+=" --enable-libsnappy"
             ;;
             soxr)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags soxr)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static soxr)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags soxr)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static soxr)"
                 CONFIGURE_POSTFIX+=" --enable-libsoxr"
             ;;
             speex)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags speex)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static speex)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags speex)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static speex)"
                 CONFIGURE_POSTFIX+=" --enable-libspeex"
             ;;
             tesseract)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags tesseract)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static tesseract)"
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags giflib)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static giflib)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags tesseract)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static tesseract)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags giflib)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static giflib)"
                 CONFIGURE_POSTFIX+=" --enable-libtesseract"
             ;;
             twolame)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags twolame)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static twolame)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags twolame)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static twolame)"
                 CONFIGURE_POSTFIX+=" --enable-libtwolame"
             ;;
             vo-amrwbenc)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags vo-amrwbenc)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static vo-amrwbenc)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags vo-amrwbenc)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static vo-amrwbenc)"
                 CONFIGURE_POSTFIX+=" --enable-libvo-amrwbenc"
             ;;
             wavpack)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags wavpack)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static wavpack)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags wavpack)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static wavpack)"
                 CONFIGURE_POSTFIX+=" --enable-libwavpack"
             ;;
             x264)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags x264)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static x264)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags x264)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static x264)"
                 CONFIGURE_POSTFIX+=" --enable-libx264 --enable-gpl"
             ;;
             x265)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags x265)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static x265)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags x265)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static x265)"
                 CONFIGURE_POSTFIX+=" --enable-libx265 --enable-gpl"
             ;;
             xvidcore)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags xvidcore)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static xvidcore)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags xvidcore)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static xvidcore)"
                 CONFIGURE_POSTFIX+=" --enable-libxvid --enable-gpl"
             ;;
             expat)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags expat)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static expat)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags expat)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static expat)"
             ;;
             libogg)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags ogg)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static ogg)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags ogg)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static ogg)"
             ;;
             libpng)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags libpng)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static libpng)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags libpng)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static libpng)"
             ;;
             nettle)
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags nettle)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static nettle)"
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags hogweed)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static hogweed)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags nettle)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static nettle)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags hogweed)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static hogweed)"
             ;;
             ios-*|tvos-*)
 
                 # BUILT-IN LIBRARIES SHARE INCLUDE AND LIB DIRECTORIES
                 # INCLUDING ONLY ONE OF THEM IS ENOUGH
-                FFMPEG_CFLAGS+=" $(pkg-config --cflags zlib)"
-                FFMPEG_LDFLAGS+=" $(pkg-config --libs --static zlib)"
+                FFMPEG_CFLAGS+=" $(pkg-config --dont-define-prefix --cflags zlib)"
+                FFMPEG_LDFLAGS+=" $(pkg-config --dont-define-prefix --libs --static zlib)"
 
                 case ${ENABLED_LIBRARY} in
                     *-audiotoolbox)

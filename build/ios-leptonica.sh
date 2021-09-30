@@ -39,20 +39,20 @@ export CPPFLAGS="-I${BASEDIR}/prebuilt/$(get_target_build_directory)/giflib/incl
 export LDFLAGS="$(get_ldflags ${LIB_NAME}) -L${BASEDIR}/prebuilt/$(get_target_build_directory)/giflib/lib -lgif"
 export PKG_CONFIG_LIBDIR="${INSTALL_PKG_CONFIG_DIR}"
 
-export LIBPNG_CFLAGS="$(pkg-config --cflags libpng)"
-export LIBPNG_LIBS="$(pkg-config --libs --static libpng)"
+export LIBPNG_CFLAGS="$(pkg-config --dont-define-prefix --cflags libpng)"
+export LIBPNG_LIBS="$(pkg-config --dont-define-prefix --libs --static libpng)"
 
-export LIBWEBP_CFLAGS="$(pkg-config --cflags libwebp)"
-export LIBWEBP_LIBS="$(pkg-config --libs --static libwebp)"
+export LIBWEBP_CFLAGS="$(pkg-config --dont-define-prefix --cflags libwebp)"
+export LIBWEBP_LIBS="$(pkg-config --dont-define-prefix --libs --static libwebp)"
 
-export LIBTIFF_CFLAGS="$(pkg-config --cflags libtiff-4)"
-export LIBTIFF_LIBS="$(pkg-config --libs --static libtiff-4)"
+export LIBTIFF_CFLAGS="$(pkg-config --dont-define-prefix --cflags libtiff-4)"
+export LIBTIFF_LIBS="$(pkg-config --dont-define-prefix --libs --static libtiff-4)"
 
-export ZLIB_CFLAGS="$(pkg-config --cflags zlib)"
-export ZLIB_LIBS="$(pkg-config --libs --static zlib)"
+export ZLIB_CFLAGS="$(pkg-config --dont-define-prefix --cflags zlib)"
+export ZLIB_LIBS="$(pkg-config --dont-define-prefix --libs --static zlib)"
 
-export JPEG_CFLAGS="$(pkg-config --cflags libjpeg)"
-export JPEG_LIBS="$(pkg-config --libs --static libjpeg)"
+export JPEG_CFLAGS="$(pkg-config --dont-define-prefix --cflags libjpeg)"
+export JPEG_LIBS="$(pkg-config --dont-define-prefix --libs --static libjpeg)"
 
 cd ${BASEDIR}/src/${LIB_NAME} || exit 1
 
