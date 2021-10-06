@@ -233,13 +233,13 @@ get_arch_specific_cflags() {
             echo "-arch arm64e -target $(get_target_host) -march=armv8.3-a+crc+crypto -mcpu=generic -DMOBILE_FFMPEG_ARM64E"
         ;;
         i386)
-            echo "-arch i386 -target $(get_target_host) -march=i386 -mtune=intel -mssse3 -mfpmath=sse -m32 -DMOBILE_FFMPEG_I386"
+            echo "-arch i386 -target $(get_target_host) -march=i386 -mssse3 -mfpmath=sse -m32 -DMOBILE_FFMPEG_I386"
         ;;
         x86-64)
-            echo "-arch x86_64 -target $(get_target_host) -march=x86-64 -msse4.2 -mpopcnt -m64 -mtune=intel -DMOBILE_FFMPEG_X86_64"
+            echo "-arch x86_64 -target $(get_target_host) -march=x86-64 -msse4.2 -mpopcnt -m64 -DMOBILE_FFMPEG_X86_64"
         ;;
         x86-64-mac-catalyst)
-            echo "-arch x86_64 -target $(get_target_host) -march=x86-64 -msse4.2 -mpopcnt -m64 -mtune=intel -DMOBILE_FFMPEG_X86_64_MAC_CATALYST -isysroot ${SDK_PATH} -isystem ${SDK_PATH}/System/iOSSupport/usr/include -iframework ${SDK_PATH}/System/iOSSupport/System/Library/Frameworks"
+            echo "-arch x86_64 -target $(get_target_host) -march=x86-64 -msse4.2 -mpopcnt -m64 -DMOBILE_FFMPEG_X86_64_MAC_CATALYST -isysroot ${SDK_PATH} -isystem ${SDK_PATH}/System/iOSSupport/usr/include -iframework ${SDK_PATH}/System/iOSSupport/System/Library/Frameworks"
         ;;
     esac
 }
